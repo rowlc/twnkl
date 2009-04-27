@@ -1,4 +1,5 @@
 # Django settings for tweenkle project.
+# you'll need to fill in the details below
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
