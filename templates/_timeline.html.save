@@ -1,0 +1,32 @@
+{% load twittertags %}
+<table class="timeline">
+	<tbody>
+		{% for status in statuses %}
+		{% ifchanged %}
+		<tr class="odd"><td colspan="2"><small><b>{{status.created_at|date:"l M d, Y"}}</b></small></td></tr>
+		{% endifchanged %}
+		<tr class="{% cycle 'even' 'odd' %}">
+			<td><img src='{{status.user.profile_image_url}}' height='24' width='24' /></td><td><b><a href='/user/{{status.user.screen_name}}'>{{status.user.screen_name}}</a></b> 
+
+				<a href='/user/{{status.user.screen_name}}/reply/{{status.id}}'><img src='http://twnkl.org/images/reply.png' /></a> 
+				<a href='/directs/reply/{{status.user.screen_name}}'><img src='http://twnkl.org/images/dm.png' /></a> 
+				<!--><a href='favourite/{{status.id}}'><img src='http://twnkl.org/images/star_grey.png' /></a> //-->
+				<a href='/retweet/{{status.id}}'><img src='http://twnkl.org/images/retweet.png' /></a> 
+				<small><a href='/status/{{status.id}}'>{{status.created_at|timesince}} ago</a></small><br>
+				{% if status.twitpic %}
+				<img src="{{status.twitpic}}" width=75 height=75><br/>
+				{% endif %}
+				{% if status.mobypic %}
+				<img src="{{status.mobypic}}" width=75 height=75><br/>
+				{% endif %}
+				{{status.text|urlize|clean_users|clean_topic|safe}}<small> from {{status.source|safe}}
+			{% ifnotequal status.in_reply_to_status_id None %}
+                            
+
+				 in reply to <a href='/status/{{status.in_reply_to_status_id}}'>{{status.in_reply_to_screen_name}}</a>
+			{% endifnotequal %}
+			</small></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>

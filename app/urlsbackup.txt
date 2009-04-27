@@ -1,0 +1,51 @@
+from django.conf.urls.defaults import *
+from twnkl.app.views import *
+
+urlpatterns = patterns('twnkl.app.views',
+    # Example:
+
+    (r'^$', index),
+    (r'^page/(?P<page>\d+)/$', index),
+
+    (r'^replies/$', replies),
+
+    (r'^about/$', about),
+    (r'^login/$', login),
+    (r'^logout/$', logout),
+    (r'^update/$', update),
+
+    (r'^fav/$', faves),
+    (r'^fav/(?P<action>[-\w]+)/(?P<status>\d+)/$', faves_mod),
+    
+    (r'^twitpic/$', twit_pic),
+    (r'^public/$', public),
+
+    (r'^block/$', doblocked),
+    (r'^block/(?P<action>[-\w]+)/(?P<user>[-\w]+)/$', block),
+
+    (r'^friend/(?P<action>[-\w]+)/(?P<user>[-\w]+)/$', follow),
+    (r'^followers/$', followers),
+    (r'^followers/(?P<user>[-\w]+)/$', followers),
+    (r'^friends/(?P<user>[-\w]+)/$', friends),
+    (r'^friends/$', friends),
+
+    (r'^user/(?P<user>[-\w]+)/$', userinfo),
+    (r'^user/(?P<user>[-\w]+)/reply/(?P<tweet_id>\d+)/$', userinfo),
+
+    (r'^retweet/(?P<tweet>\d+)/$', retweet),
+
+    (r'^status/(?P<status_id>\d+)/$', status),
+
+    # these ones can't be changed
+    (r'^search/$', dosearch),
+    (r'^search/(?P<query>[\#a-zA-Z0-9\ ]+)/ns/$', search, {'saved':True}),
+    (r'^search/(?P<query>[\#a-zA-Z0-9\ ]+)/$', search),
+    (r'^search/add/(?P<query>[\#a-zA-Z0-9\ ]+)/$', savesearch),
+    (r'^search/del/(?P<query>[\#a-zA-Z0-9\ ]+)/$', delsearch),
+
+    (r'^directs/sent/$', directs, {'sent':True}),    
+    (r'^directs/$', directs),
+    (r'^directs/compose/$', directs_reply),
+    (r'^directs/reply/(?P<replyto>[-\w]+)/$', directs_reply),
+
+    )

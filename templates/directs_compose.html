@@ -1,0 +1,15 @@
+{% extends "_base.html" %}
+{% block title %}direct message {% if replyto %}- {{replyto}}{% endif %}{% endblock %}
+{% block form %}{% endblock %}
+{% block content %}
+{% if replyto %}
+<form action='{% url twnkl.app.views.directs_reply replyto=replyto %}/' method='post'>
+{% else %}
+<form action='{% url twnkl.app.views.directs_reply %}' method='post'>
+{% endif %}
+	To: <input type='text' name='rto' value='{% if replyto %}{{replyto}}{% endif %}' ><br/>
+	Msg: <br/>
+	<textarea name='message' cols='30' rows='5'></textarea><br/>
+	<input type=submit value='Go'>
+</form>
+{% endblock %}

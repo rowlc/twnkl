@@ -1,0 +1,25 @@
+{% extends "_base.html" %}
+{% block title %}retweeting {{tweet}}{% endblock %}
+{% block form %}{% endblock %}
+{% block content %}
+<form action='{% url twnkl.app.views.update %}' method='post' onsubmit="return confirmShortTweet();">
+    <input type='hidden' name='from' value='' />
+    <input name="in_reply_to_id" id="in_reply_to_id" value="{{tweet}}" type="hidden" />
+    <textarea name='status' cols='30' rows='5'>RT @{{tweeter}}: {{tweetext}}</textarea>
+    <br/>
+    <input type=submit value="RT"> <span id="remaining">140</span>
+</form>
+<script type="text/javascript">
+function updateCount() {
+  document.getElementById("remaining").innerHTML = 140 - document.getElementById("status").value.length;
+  setTimeout(updateCount, 400);
+}
+function confirmShortTweet() {
+  var len = document.getElementById("status").value.length;
+  if (len < 30) return confirm("That's a short tweet.\nContinue?");
+  return true;
+}
+updateCount();
+</script>
+{% endblock %}
+    

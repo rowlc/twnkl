@@ -1,0 +1,31 @@
+{% extends "_base.html" %}
+{% block title %}search results for {{query}}{% endblock %}
+{% block form %}
+<form method="POST" action="{% url twnkl.app.views.update %}" onsubmit="return confirmShortTweet();">
+  <div><span id='twlabel'></span><input type=text id="status" name="status" style="width:80%; max-width: 400px;">
+  <input name="in_reply_to_id" id="in_reply_to_id" value="" type="hidden" />
+  <input type="hidden" name="postback" id="postback" value="true" />
+  <input type="submit" value="Go" /> <span id="remaining">140</span></div>
+</form>
+<script type="text/javascript">
+function updateCount() {
+  document.getElementById("remaining").innerHTML = 140 - document.getElementById("status").value.length;
+  setTimeout(updateCount, 400);
+}
+function confirmShortTweet() {
+  var len = document.getElementById("status").value.length;
+  if (len < 30) return confirm("That's a short tweet.\nContinue?");
+  return true;
+}
+updateCount();
+</script>
+{% endblock %}
+{% block content %}
+<div style='padding-left:4px'>Search results for: <b>{{query}}</b><br/>
+{% ifequal saved None %}
+<a href="/search/add/{{query|urlencode}}/">Save Search</a>
+{% endifequal %}
+</div>
+{% include "_searchresults.html" %}
+{% endblock %}
+{% block pagewidget %}{% endblock %}

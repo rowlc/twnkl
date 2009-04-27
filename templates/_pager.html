@@ -1,0 +1,7 @@
+{% if statuses.has_previous %}
+<a href="{{myurl}}page/{{ statuses.previous_page_number }}/">Newer</a> |
+{% endif %}
+Page {{page}}
+{% if statuses.has_next %}
+| <a href="{{myurl}}page/{{ statuses.next_page_number }}/">Older</a>
+{% endif %}

@@ -1,0 +1,28 @@
+{% extends "_base.html" %}
+{% block form %}{% endblock %}
+{% block content %}
+
+<form action="{% url twnkl.app.views.dosearch %}" method=post>
+	Query: <input type=text name=query>
+	<input type=submit value="Search">
+</form>
+<br/>
+{% ifnotequal savedsearches None %}
+<div style="padding-left:4px">Saved Searches:<br/>
+<small>Use RSS to subscribe to your search (courtesy of Twitter) or X to can it.</small>
+<ul>
+{% for search in savedsearches %}
+    <li><a href="/search/{{search.channel|urlencode}}/ns/">{{search.channel}}</a> 
+    [<a href="http://search.twitter.com/search.atom?q={{search.channel|urlencode}}">RSS</a>]
+    [<a href="/search/del/{{search.channel|urlencode}}/">X</a>]</li>
+{% endfor %}
+</ul>
+</div>
+{% else %}
+<br/>
+<div style="padding-left:4px"><small>Please note:  Saved searches are stored on Twnkl's database. To protect your privacy, your username is NOT stored, rather an MD5 hash of the username is used to save/retrieve the saved searches.  This means the administrators of Twnkl have no way of matching saved searches to a particular username.</small></div>
+<br/>
+{% endifnotequal %}
+{% endblock %}
+{% block pagewidget %}
+{% endblock %}

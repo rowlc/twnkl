@@ -1,0 +1,26 @@
+{% extends "_base.html" %}
+{% block form %}
+Â 
+{% endblock %}
+{% block title %}about{% endblock %}
+{% block content %}
+<table border=0>
+	<tr><td colspan=2 align=center>
+<img src='http://twnkl.org/images/tweenkle.png'>
+</td></tr>
+
+<tr><td colspan=2 style="padding-left:20px;">
+	Twnkl is a Python-based web client for accessing <a href="http://twitter.com">Twitter</a> from your mobile phone.  
+	It's based on the other PHP based clients like DABR and Slandr.. although it will have some of its own special
+	features.<br/>
+	<br/>
+	Feedback, queries, comments etc to @<a href="{% url twnkl.app.views.userinfo user="rowlc" %}">RowlC</a> or <a href="mailto:support@twnkl.org">support@twnkl.org</a>.<br/>
+	<br/>
+	Twnkl runs on Django {{djver}}, on top of Python {{pyver}} and Cherokee {{chver}}.
+
+</td></tr>
+</table>
+<br/>
+{% endblock %}
+{% block pagewidget %}
+{% endblock %}

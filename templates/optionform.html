@@ -1,0 +1,30 @@
+{% extends "_base.html" %}
+{% block form %}{% endblock %}
+{% block content %}
+
+<br>
+
+<div style="padding-left:4px">Interface Options:<br></div>
+<form action="{% url twnkl.app.views.options %}" method="post">
+{{ userform.as_p }}
+<p><small>Note: If you disable scripting, you wont get sound. They go together.</small></p>
+<input type=submit value='Save'>
+</form>
+<hr>
+<div style="padding-left:4px">Blocked Users (according to Twnkl):<br>
+{% ifnotequal usersblocked None %}
+<small>Note: Tweets from these users will not show up on your friends timeline, replies, or searches.</small><br>
+<ul>
+{% for user in usersblocked %}
+    <li><a href="{% url twnkl.app.views.userinfo user=user.username %}">{{user.username}}</a> [<a href="{% url twnkl.app.views.block action="remove",user=user.username %}">X</a>]</li>
+{% endfor %}
+</ul>
+</div>
+{% else %}
+<div style="padding-left:4px"><small>Please note:  Blocked users are stored on Twnkls database. To protect your privacy, your username is NOT stored, rather an MD5 hash of the username is used to save/retrieve the blocked users.  This means the administrators of Twnkl have no way of matching blocked users to a particular username.</small></div>
+<br/>
+{% endifnotequal %}
+
+{% endblock %}
+{% block pagewidget %}
+{% endblock %}

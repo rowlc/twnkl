@@ -1,0 +1,46 @@
+{% extends "_base.html" %}
+{% block title %}about {{tuser.screen_name}}{% endblock %}
+{% block form %}
+{% if tweet %}<br/>In reply to tweet {{tweet}}:{% endif %}
+<form method="POST" action="{% url twnkl.app.views.update %}" onsubmit="return confirmShortTweet();">
+  <div><input type=text id="status" name="status" style="width:80%; max-width: 400px;" value="@{{tuser.screen_name}} ">
+  <input name="in_reply_to_id" value="{{tweet}}" type="hidden" /><input type="submit" value="Go" /> <span id="remaining">140</span></div>
+</form>
+<script type="text/javascript">
+function updateCount() {
+  document.getElementById("remaining").innerHTML = 140 - document.getElementById("status").value.length;
+  setTimeout(updateCount, 400);
+}
+function confirmShortTweet() {
+  var len = document.getElementById("status").value.length;
+  if (len < 30) return confirm("That's a short tweet.\nContinue?");
+  return true;
+}
+updateCount();
+</script>
+{% endblock %}
+{% block content %}
+<table>
+	<tr>
+		<td><a href='{{tuser.profile_image_url}}'><img src='{{tuser.profile_image_url}}' height='48' width='48' /></a></td>
+		<td><b><a href='{% url twnkl.app.views.userinfo user=tuser.screen_name %}'>{{tuser.screen_name}}</a> ({{tuser.name}})</b>
+			<small>
+			<br>Bio: {{tuser.description|safe}}
+			<br>Link: <a href='{{tuser.url}}'>{{tuser.url}}</a>
+
+			<br>Location: {{tuser.location}}
+			{% if userblocked %}<br>User is <b>blocked</b>.{% endif %}
+			</small>
+
+			<br>
+			  <a href='{% url twnkl.app.views.followers user=tuser.screen_name %}'>{{tuser.followers_count}} follower{{tuser.followers_count|pluralize}}</a> 
+			| <a href='{% url twnkl.app.views.follow action="add",user=tuser.screen_name %}'>Follow</a> 
+			| <a href='{% url twnkl.app.views.follow action="remove",user=tuser.screen_name %}'>Unfollow</a> 
+			| <a href='{% url twnkl.app.views.block action="add",user=tuser.screen_name%}'>Block</a>
+			| <a href='{% url twnkl.app.views.block action="remove",user=tuser.screen_name%}'>Unblock</a>
+			| <a href='{% url twnkl.app.views.friends user=tuser.screen_name %}'>Follows {% if tuser.friends_count %}{{tuser.friends_count}} user{{tuser.friends_count|pluralize}}{% else %}no users{% endif %} </a>
+			| <a href='{% url twnkl.app.views.directs_reply replyto=tuser.screen_name %}'>Direct Message</a>
+</td></table>
+{% include "_timeline.html" %}
+{% endblock %}
+{% block pagewidget %}{% endblock %}

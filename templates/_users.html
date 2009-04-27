@@ -1,0 +1,11 @@
+<table class="followers">
+	<tbody>
+		{% for user in users %}
+		<tr class="{% cycle 'odd' 'even' %}">
+			<td><img src='{{user.profile_image_url}}' height='24' width='24' /></td>
+			<td><a href='{% url twnkl.app.views.userinfo user=user.screen_name %}'>{{user.screen_name}}</a> 
+				{% ifnotequal user.screen_name user.name %}({{user.name}}){% endifnotequal %}
+				- {{user.location}}<small><br>{{user.description|safe}}</small></td></tr>
+		{% endfor %}
+	</tbody>
+	</table>

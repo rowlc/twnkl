@@ -1,0 +1,9 @@
+{% extends "_base.html" %}
+{% block title %}{{request.session.u}}'s timeline{% endblock %}
+{% block content %}
+<table class="timeline">
+{% include "_timeline_page.html" %}
+{% endblock %}
+{% block pagewidget %}
+{% include "_pager.html" %}
+{% endblock %}

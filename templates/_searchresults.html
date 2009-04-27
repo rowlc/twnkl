@@ -1,0 +1,29 @@
+{% load twittertags %}
+<table class="timeline">
+	<tbody>
+		{% for result in results %}
+		{% ifchanged %}
+		<tr class="odd"><td colspan="2"><small><b>{{result.created_at|timezone:request.session.tz|date:"l M d, Y"}}</b></small></td></tr>
+		{% endifchanged %}
+		<tr class="{% cycle 'even' 'odd' %}">
+			<td><img src='{{result.profile_image_url}}' height='24' width='24' /></td><td><b><a href='{% url twnkl.app.views.userinfo user=result.from_user %}'>{{result.from_user}}</a></b> 
+				{% with result as status %}
+				{% include "_actionblock_js.html" %}
+				{% endwith %}
+				<small><a href='{% url twnkl.app.views.status status_id=result.id %}'>{{result.created_at|timezone:request.session.tz|timesince}} ago</a></small><br>
+				{% if result.twitpic %}
+				{{result.twitpic|safe}}<br/>
+				{% endif %}
+				{% if result.mobypic %}
+				{{result.mobypic|safe}}<br/>
+				{% endif %}
+				{{result.text|urlize|clean_tags|safe}}<small> 
+			{% ifnotequal result.to_user_id None %}
+				 in reply to <a href='{% url twnkl.app.views.userinfo user=result.to_user %}'>{{result.to_user}}</a>
+			{% endifnotequal %}
+			from {{result.source|safe}}
+			</small></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>

@@ -1,0 +1,22 @@
+{% if status.from_user %}
+<script>label{{status.id}}="<a href='#' onclick='javascript:document.getElementById(\"in_reply_to_id\").value=\"\";document.getElementById(\"status\").value=\"\";document.getElementById(\"twlabel\").innerHTML=\"\";'>{{status.from_user}} [{{status.id}}]:</a> ";</script>
+<a href='#' onclick="javascript:document.getElementById('status').value='@{{status.from_user}} ';document.getElementById('in_reply_to_id').value='{{status.id}}'; document.getElementById('twlabel').innerHTML=label{{status.id}};"><img src='http://twnkl.org/images/reply.png' /></a>
+<a href='{% url twnkl.app.views.dothread status=status.id %}'><img src='http://twnkl.org/images/conversation.png' /></a>
+<a href='{% url twnkl.app.views.directs_reply replyto=status.from_user %}'><img src='http://twnkl.org/images/dm.png' /></a> 
+
+{% else %}
+<script>label{{status.id}}="<a href='#' onclick='javascript:document.getElementById(\"in_reply_to_id\").value=\"\";document.getElementById(\"status\").value=\"\";document.getElementById(\"twlabel\").innerHTML=\"\";'>{{status.user.screen_name}} [{{status.id}}]:</a> ";</script>
+<a href='#' onclick="javascript:document.getElementById('status').value='@{{status.user.screen_name}} ';document.getElementById('in_reply_to_id').value='{{status.id}}'; document.getElementById('twlabel').innerHTML=label{{status.id}};"><img src='http://twnkl.org/images/reply.png' /></a>
+
+<a href='{% url twnkl.app.views.dothread status=status.id %}'><img src='http://twnkl.org/images/conversation.png' /></a>
+<a href='{% url twnkl.app.views.directs_reply replyto=status.user.screen_name %}'><img src='http://twnkl.org/images/dm.png' /></a> 
+
+{% endif %}
+
+
+{% if status.favorited %}
+<a href='{% url twnkl.app.views.faves_mod action="del",status=status.id %}'><img src='http://twnkl.org/images/star.png' /></a>
+{% else %}
+<a href='{% url twnkl.app.views.faves_mod action="add",status=status.id %}'><img src='http://twnkl.org/images/star_grey.png' /></a>
+{% endif %}
+		<a href='{% url twnkl.app.views.retweet tweet=status.id %}'><img src='http://twnkl.org/images/retweet.png' /></a>

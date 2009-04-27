@@ -1,0 +1,51 @@
+{% extends "_base.html" %}
+{% block form %}
+{% endblock %}
+{% block content %}
+<table border=0>
+	<tr><td colspan=2 align=center>
+<img src='http://twnkl.org/images/tweenkle.png'>
+</td></tr>
+<form action="{% url twnkl.app.views.login %}" method=post>
+	<tr><td>User:</td><td><input type=text name=u></td></tr>
+	<tr><td>Pass:</td><td><input type=password name=p></td></tr>
+	<tr><td>Time:</td><td><select name="tz" id="tz">
+      <option value="-12.0" {% ifequal request.session.tz -12.0 %}selected{% endifequal %}>(GMT -12:00) Eniwetok, Kwajalein</option>
+      <option value="-11.0" {% ifequal request.session.tz -11.0 %}selected{% endifequal %}>(GMT -11:00) Midway Island, Samoa</option>
+      <option value="-10.0" {% ifequal request.session.tz -10.0 %}selected{% endifequal %}>(GMT -10:00) Hawaii</option>
+      <option value="-9.0"  {% ifequal request.session.tz -9.0 %}selected{% endifequal %}>(GMT -9:00) Alaska</option>
+      <option value="-8.0"  {% ifequal request.session.tz -8.0 %}selected{% endifequal %}>(GMT -8:00) Pacific Time (US & Canada)</option>
+      <option value="-7.0"  {% ifequal request.session.tz -7.0 %}selected{% endifequal %}>(GMT -7:00) Mountain Time (US & Canada)</option>
+      <option value="-6.0"  {% ifequal request.session.tz -6.0 %}selected{% endifequal %}>(GMT -6:00) Central Time (US & Canada), Mexico City</option>
+      <option value="-5.0"  {% ifequal request.session.tz -5.0 %}selected{% endifequal %}>(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima</option>
+      <option value="-4.0"  {% ifequal request.session.tz -4.0 %}selected{% endifequal %}>(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
+      <option value="-3.5"  {% ifequal request.session.tz -3.5 %}selected{% endifequal %}>(GMT -3:30) Newfoundland</option>
+      <option value="-3.0"  {% ifequal request.session.tz -3.0 %}selected{% endifequal %}>(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
+      <option value="-2.0"  {% ifequal request.session.tz -2.0 %}selected{% endifequal %}>(GMT -2:00) Mid-Atlantic</option>
+      <option value="-1.0"  {% ifequal request.session.tz -1.0 %}selected{% endifequal %}>(GMT -1:00 hour) Azores, Cape Verde Islands</option>
+      <option value="0.0"   {% ifequal request.session.tz 0.0 %}selected{% endifequal %}>(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
+      <option value="1.0"   {% ifequal request.session.tz 1.0 %}selected{% endifequal %}>(GMT +1:00 hour) Brussels, Copenhagen, Madrid, Paris</option>
+      <option value="2.0"   {% ifequal request.session.tz 2.0 %}selected{% endifequal %}>(GMT +2:00) Kaliningrad, South Africa</option>
+      <option value="3.0"   {% ifequal request.session.tz 3.0 %}selected{% endifequal %}>(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
+      <option value="3.5"   {% ifequal request.session.tz 3.5 %}selected{% endifequal %}>(GMT +3:30) Tehran</option>
+      <option value="4.0"   {% ifequal request.session.tz 4.0 %}selected{% endifequal %}>(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
+      <option value="4.5"   {% ifequal request.session.tz 4.5 %}selected{% endifequal %}>(GMT +4:30) Kabul</option>
+      <option value="5.0"   {% ifequal request.session.tz 5.0 %}selected{% endifequal %}>(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+      <option value="5.5"   {% ifequal request.session.tz 5.5 %}selected{% endifequal %}>(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
+      <option value="5.75"  {% ifequal request.session.tz 5.75 %}selected{% endifequal %}>(GMT +5:45) Kathmandu</option>
+      <option value="6.0"   {% ifequal request.session.tz 6.0 %}selected{% endifequal %}>(GMT +6:00) Almaty, Dhaka, Colombo</option>
+      <option value="7.0"   {% ifequal request.session.tz 7.0 %}selected{% endifequal %}>(GMT +7:00) Bangkok, Hanoi, Jakarta</option>
+      <option value="8.0"   {% ifequal request.session.tz 8.0 %}selected{% endifequal %}>(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
+      <option value="9.0"   {% ifequal request.session.tz 9.0 %}selected{% endifequal %}>(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
+      <option value="9.5"   {% ifequal request.session.tz 9.5 %}selected{% endifequal %}>(GMT +9:30) Adelaide, Darwin</option>
+      <option value="10.0"  {% ifequal request.session.tz 10.0 %}selected{% endifequal %}>(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
+      <option value="11.0"  {% ifequal request.session.tz 11.0 %}selected{% endifequal %}>(GMT +11:00) Magadan, Solomon Islands, New Caledonia</option>
+      <option value="12.0"  {% ifequal request.session.tz 12.0 %}selected{% endifequal %}>(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
+</select></td></tr>
+	<tr><td colspan=2 align=center><input type=submit value="Sign in"></td></tr>
+</form>
+</table>
+<br/>
+{% endblock %}
+{% block pagewidget %}
+{% endblock %}

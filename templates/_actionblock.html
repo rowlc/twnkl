@@ -1,0 +1,22 @@
+<a href='
+{% if status.from_user %}
+		{% url twnkl.app.views.userinfo user=status.from_user,tweet_id=status.id %}
+{% else %}
+		{% url twnkl.app.views.userinfo user=status.user.screen_name,tweet_id=status.id %}
+{% endif %}
+'><img src='http://twnkl.org/images/reply.png' /></a>
+<a href='{% url twnkl.app.views.dothread status=status.id %}'><img src='http://twnkl.org/images/conversation.png' /></a>
+<a href='
+{% if status.from_user %}
+{% url twnkl.app.views.directs_reply replyto=status.from_user %}
+{% else %}
+{% url twnkl.app.views.directs_reply replyto=status.user.screen_name %}
+{% endif %}
+'><img src='http://twnkl.org/images/dm.png' /></a> 
+
+{% if status.favorited %}
+<a href='{% url twnkl.app.views.faves_mod action="del",status=status.id %}'><img src='http://twnkl.org/images/star.png' /></a>
+{% else %}
+<a href='{% url twnkl.app.views.faves_mod action="add",status=status.id %}'><img src='http://twnkl.org/images/star_grey.png' /></a>
+{% endif %}
+		<a href='{% url twnkl.app.views.retweet tweet=status.id %}'><img src='http://twnkl.org/images/retweet.png' /></a>

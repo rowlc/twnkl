@@ -1,0 +1,31 @@
+{% load twittertags %}
+<div style="padding-left:3px;">
+<br/>
+{% ifequal msgsent "sent" %}<b>Message Sent!</b><br/>{% endifequal %}
+{% ifequal msgsent "fail" %}<B>Message FAIL!</b> - user probably isn't your friend, so you can't message them.<br/>{% endifequal %}
+{% ifequal messages_type "Sent" %}
+    Sent messages (Go to <a href="/directs">Inbox</a>):
+{% else %}
+    Inbox (Go to <a href="/directs/sent">Sent</a>):
+{% endifequal %}
+<br/>
+<br/>
+</div>
+<table class="timeline">
+	<tbody>
+		{% for msg in messages %}
+		{% ifchanged %}
+		<tr class="even"><td colspan="2"><small><b>{{msg.created_at|timezone:request.session.tz|date:"D d M, Y \a\t G:i"}}</b></small></td></tr>
+		{% endifchanged %}
+		<tr class="{% cycle 'odd' 'even' %}">
+			<td>From <b><a href='{% url twnkl.app.views.userinfo user=msg.sender_screen_name %}'>{{msg.sender_screen_name}}</a></b> to <b><a href="{% url twnkl.app.views.userinfo user=msg.recipient_screen_name %}/">{{msg.recipient_screen_name}}</a></b>
+
+				<a href='{% url twnkl.app.views.directs_reply replyto=msg.sender_screen_name %}'><img src='http://twnkl.org/images/dm.png' /></a> 
+
+				<small>{{msg.created_at|timezone:request.session.tz|timesince}} ago</small><br>
+				{{msg.text|urlize|clean_tags|safe}}<small>
+			</small></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
